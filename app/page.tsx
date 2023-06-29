@@ -12,7 +12,6 @@ export default function Home() {
     "What is the salary cap for the new season?",
     "Explain the luxury tax in the new NBA CBA.",
     "What changes were made in player trades?",
-    "Can a team use the Non-Taxpayer Mid-Level Salary Exception to sign a player who was previously waived by another team during the same Salary Cap Year?"
   ];
 
   const handlePromptClick = (prompt: string) => {
