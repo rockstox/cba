@@ -3,6 +3,7 @@
 import { useChat } from "ai/react";
 import { setHttpClientAndAgentOptions } from "next/dist/server/config";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const { messages, input, handleInputChange, setInput, handleSubmit } = useChat(); 
@@ -20,13 +21,26 @@ export default function Home() {
 
 
   return (
-    <div className="mx-auto w-full max-w-[600px] py-2 sm:py-10 flex flex-col stretch text-neutral-50 px-2">
+    <>
+    <div className="w-screen h-screen absolute z-0 overflow-hidden">
+      <Image 
+        src="/cba-bg.png"
+        alt="Basketball Background"
+        width="1920"
+        height="1080"
+        className="object-cover blur-sm height-full"
+      />
+    </div>
+    <div className="mx-auto w-full max-w-[600px] py-2 sm:py-10 z-10 relative flex flex-col stretch text-neutral-50 px-2">
+      <div className="p-6 backdrop-blur-sm bg-black/60 rounded-lg mb-[200px]">
+      {messages.length === 0 && (
+      <>
       <div className="text-center">
         <div className="text-4xl font-bold">Explore the new NBA CBA</div>
         <div className="mt-3 text-xl">Interact with AI to understand the latest 676-page NBA Collective Bargaining Agreement (CBA).</div>
       </div>
 
-      {messages.length === 0 && (
+      
         <div className="my-5">
         <div className="text-2xl text-center font-bold mb-4">Example Prompts</div>
         {examplePrompts.map((prompt, i) => (
@@ -39,12 +53,13 @@ export default function Home() {
           </button>
         ))}
       </div>
+      </>
       )}
       
       {messages.length > 0 && (
         <div className="flex flex-col mt-y border-b-2">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-[40px] flex justify-center mb-4"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-2 py-2 px-4 rounded h-[40px] flex justify-center mb-4"
             onClick={() => window.location.reload()}
           >
             Ask Another Question
@@ -61,9 +76,11 @@ export default function Home() {
           ))}
         </div>
       )}
+      </div>
 
+      <div className="p-6 fixed bottom-0 backdrop-blur-sm bg-black/60 rounded-t-lg mt-4">
       <form
-        className="flex fixed bottom-0 sm:bottom-4"
+        className="flex"
         onSubmit={handleSubmit}
       >
         <input
@@ -81,6 +98,8 @@ export default function Home() {
           Ask
         </button>
       </form>
+      </div>
     </div>
+    </>
   );
 }
